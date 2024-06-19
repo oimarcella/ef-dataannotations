@@ -20,6 +20,7 @@ namespace Blog.Models
         
         [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         [ForeignKey("AuthorId")]
         public int AuthorId { get; set; }
