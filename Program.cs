@@ -1,6 +1,9 @@
 ﻿using System;
 using Blog.Models;
 using Blog.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Blog;
 
@@ -34,7 +37,13 @@ class Program
             LastUpdateDate = DateTime.Now
         };
 
-        //context.Posts.Add(post);
-        context.SaveChanges();
+        
+        //context.Posts.AsNoTracking().OrderByDescending(x => x.LastUpdateDate).ToList().ForEach(x => Console.WriteLine(x.Title));
+        var postFound = context.Posts.Include(x => x.Author).FirstOrDefault();
+        if(postFound != null)
+        {
+            postFound.Author.Name = "Marcella 2";
+            context.SaveChanges();
+        }
     }
 }
